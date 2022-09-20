@@ -3,13 +3,18 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-import ApolloClient from "apollo-client";
+import {ApolloClient} from "@apollo/client";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { createHttpLink } from "apollo-link-http";
 import { ApolloProvider } from "@apollo/react-hooks";
 
+const styleLink = document.createElement("link");
+styleLink.rel = "stylesheet";
+styleLink.href = "https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.css";
+document.head.appendChild(styleLink);
+
 const httpLink = createHttpLink({
-  uri: "http://localhost:5001",
+  uri: "http://localhost:5001/graphql",
 });
 
 const client = new ApolloClient({

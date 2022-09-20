@@ -4,13 +4,13 @@ import './App.css';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
-// import MenuBar from './components/MenuBar';
+import MenuBar from './components/MenuBar';
 // import SinglePost from './pages/SinglePost';
 const App = () => {
   return (
     <BrowserRouter>
       <Container>
-        {/* <MenuBar /> */}
+        <MenuBar />
         <Routes>
           <Route exact path='/' element={<Home />} />
           <Route exact path='/login' element={<Login />} />
