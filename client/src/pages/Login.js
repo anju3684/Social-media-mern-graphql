@@ -1,40 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, Form } from "semantic-ui-react";
 import { useMutation, gql } from "@apollo/client";
 import { useForm } from "../utils/hooks";
 import { useNavigate } from "react-router-dom";
-
+import { AuthContext } from "../context/auth";
 function Login(props) {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+  const context=useContext(AuthContext)
   const { onChange, onSubmit, values } = useForm(loginUserCallback, {
     username: "",
     password: "",
   });
 
-  const [loginUser, { loading}] = useMutation(LOGIN_USER, {
-  
-    update(_, result) {
-      console.log(result);
+  const [loginUser, { loading }] = useMutation(LOGIN_USER, {
+    update(_, { data: { login: userData } }) {
+      console.log(userData);
+      context.login(userData)
+      console.log(context.user)
       navigate("/");
     },
-
     onError(err) {
       setErrors(
         err && err.graphQLErrors[0]
           ? err.graphQLErrors[0].extensions.errors
           : {}
       );
-      console.log(err)
+      console.log(err);
     },
     variables: values,
-    
   });
 
   function loginUserCallback() {
     loginUser();
   }
-  
 
   return (
     <div className="form-container">

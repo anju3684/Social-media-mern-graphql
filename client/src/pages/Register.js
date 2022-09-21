@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, Form } from "semantic-ui-react";
 import { useNavigate } from "react-router-dom";
- import { useMutation, gql } from "@apollo/client";
+import { useMutation, gql } from "@apollo/client";
 import { useForm } from "../utils/hooks";
-
+import { AuthContext } from "../context/auth";
 const REGISTER_USER = gql`
   mutation register(
     $username: String!
@@ -37,17 +37,22 @@ function Register(props) {
     password: "",
     confirmPassword: "",
   });
+  const context = useContext(AuthContext);
 
-  const [addUser, { loading,error }] = useMutation(REGISTER_USER, {
-    update(_, result) {
-      console.log(error);
-       navigate('/');
-      
+  const [addUser, { loading }] = useMutation(REGISTER_USER, {
+    update(_, { data: { register: userData } }) {
+      console.log(userData);
+      context.login(userData)
+      navigate("/");
     },
     variables: values,
     onError(err) {
-      setErrors(err&&err.graphQLErrors[0]?err.graphQLErrors[0].extensions.errors:{});
-    }
+      setErrors(
+        err && err.graphQLErrors[0]
+          ? err.graphQLErrors[0].extensions.errors
+          : {}
+      );
+    },
   });
 
   function registerUser() {
