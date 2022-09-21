@@ -6,14 +6,13 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import MenuBar from './components/MenuBar';
 // import SinglePost from './pages/SinglePost';
-import { AuthProvider,AuthContext } from './context/auth';
+import { AuthContext } from './context/auth';
 import { useContext } from 'react';
 const App = () => {
   const context=useContext(AuthContext)
-  console.log(context)
+
   return (
     <BrowserRouter>
-    <AuthProvider>
       <Container>
         <MenuBar />
         <Routes>
@@ -23,7 +22,6 @@ const App = () => {
           {/* <Route exact path='/posts/:postId' element={<SinglePost />} /> */}
         </Routes>
       </Container>
-      </AuthProvider>
     </BrowserRouter>
   );
 };
