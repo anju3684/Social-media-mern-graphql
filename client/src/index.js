@@ -4,8 +4,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import {ApolloClient} from "@apollo/client";
-import { InMemoryCache } from "apollo-cache-inmemory";
-import { createHttpLink } from "apollo-link-http";
+//import { InMemoryCache } from "apollo-cache-inmemory";
+import { InMemoryCache } from '@apollo/client';
+import { createHttpLink } from "@apollo/client/link/http";
 import { ApolloProvider } from "@apollo/react-hooks";
 
 const styleLink = document.createElement("link");
@@ -15,6 +16,7 @@ document.head.appendChild(styleLink);
 
 const httpLink = createHttpLink({
   uri: "http://localhost:5001/graphql",
+  credentials: 'same-origin'
 });
 
 const client = new ApolloClient({
