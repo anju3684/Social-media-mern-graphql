@@ -39,7 +39,7 @@ const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
-console.log(authLink)
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
