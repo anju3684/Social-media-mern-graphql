@@ -19,7 +19,7 @@ function Login(props) {
       navigate("/");
     },
     onError(err) {
-      setErrors(
+      setErrors( 
         err && err.graphQLErrors[0]
           ? err.graphQLErrors[0].extensions.errors
           : {}
